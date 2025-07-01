@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Send Money</title>
+  <link rel="stylesheet" href="blc.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+ <div class="top-blue-bar"></div>
+
+  <header>
+    <div class="top-bar">
+      <div class="logo">
+  <img src="pngimg.com - paypal_PNG7.png" alt="PayPal Logo">
+</div>
+      <nav class="main-nav">
+        <a href="#">Home</a>
+        <a href="#">Activity</a>
+        <a href="#">Making and accepting payments</a>
+        <a href="#">Promote your business</a>
+        <a href="#">Funding</a>
+        <a href="#">Prof...</a>
+      </nav>
+    </div>
+   <div class="sub-nav">
+  <div class="sub-nav-box">
+    <a href="#" class="active">Send</a>
+    <a href="#">Ask</a>
+    <a href="#">Contact</a>
+    <a href="#">Plus</a>
+  </div>
+</div>
+
+  </header>
+
+  <br>
+
+<div class="content-box">
+  <div class="white-card">
+    <h2 class="title">Send money to</h2>
+<h2 id="userLabel">@rliot729</h2> <!-- This will be replaced -->
+    <div class="amount-currency vertical">
+
+<div class="balance-display" tabindex="0" onclick="focusHiddenInput()">
+  <input 
+  id="hiddenInput"
+  type="tel"
+  inputmode="numeric"
+  autocomplete="off"
+  autocorrect="off"
+  autocapitalize="off"
+  spellcheck="false"
+  style="opacity:0; position:absolute; pointer-events: none;"
+  oninput="handleMobileInput()" />
+
+  <div id="animatedBalance">0,00</div>
+</div>
+
+
+      <div class="currency">EUR</div>
+    </div>
+    <p class="why">Why this payment?</p>
+
+  </div>
+</div>
+<br>
+<div class="terms-container">
+      <p class="terms">To find out more, <a href="#">see our Terms of use.</a></p>
+    </div>
+
+    <div class="buttons">
+          <button class="send">Send</button>
+      <button class="cancel">Cancel</button>
+    </div>
+
+
+     <!-- LOADER goes here -->
+  <div id="loader">
+    <div class="matched-spinner"></div>
+  </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const sendBtn = document.querySelector('.send');
+    const loader = document.getElementById('loader');
+
+    if (!sendBtn) {
+      console.error("❌ Send button not found.");
+      return;
+    }
+
+    sendBtn.addEventListener('click', function () {
+      // ✅ Only hide the MAIN content — keep header/nav
+      document.querySelectorAll('.content-box, .terms-container, .buttons, #content')
+        .forEach(el => el.style.display = 'none');
+
+      // Show the loader (header remains visible)
+      loader.classList.add('active');
+
+      // Redirect after 3 seconds
+      setTimeout(() => {
+        window.location.href = `try.html?amount=${encodeURIComponent(formatToCurrencyDigits(rawDigits).join(""))}&user=${encodeURIComponent(user || '')}`;
+      }, 3000);
+    });
+  });
+  
+</script>
+
+    <script>
+  const params = new URLSearchParams(window.location.search);
+  const user = params.get('user');
+  if (user) {
+    const label = document.getElementById('userLabel');
+    if (label) label.textContent = user;
+  }
+</script>
+
+    
+   <script>
+let rawDigits = ""; // Store as "1234" = 12.34
+let lastFormatted = [];
+
+function focusHiddenInput() {
+  document.getElementById("hiddenInput").focus();
+}
+
+function handleMobileInput() {
+  const input = document.getElementById("hiddenInput");
+  rawDigits = input.value.replace(/\D/g, "").slice(0, 9);
+  updateDisplay();
+}
+
+function handleKey(e) {
+  if (e.key >= "0" && e.key <= "9") {
+    if (rawDigits.length < 9) rawDigits += e.key;
+  } else if (e.key === "Backspace") {
+    rawDigits = rawDigits.slice(0, -1);
+  } else {
+    return;
+  }
+  e.preventDefault();
+  updateDisplay();
+}
+
+function formatToCurrencyDigits(raw) {
+  raw = raw.padStart(3, "0"); // at least 3 digits
+  const intPart = raw.slice(0, raw.length - 2);
+  const decPart = raw.slice(-2);
+  return [...intPart + "," + decPart];
+}
+
+function updateDisplay() {
+  const display = document.getElementById("animatedBalance");
+  const formatted = formatToCurrencyDigits(rawDigits);
+
+  // Ensure the display ALWAYS shows 6 characters (e.g. "000.00")
+  const padded = [...formatted.join("").padStart(6, "0")];
+
+  display.innerHTML = "";
+
+  for (let i = 0; i < padded.length; i++) {
+    const span = document.createElement("span");
+    span.className = "digit";
+    span.textContent = padded[i];
+
+    if (padded[i] !== lastFormatted[i]) {
+      span.classList.add(
+        padded.length < lastFormatted.length ? "animate-out" : "animate-in"
+      );
+    }
+
+    display.appendChild(span);
+  }
+
+  lastFormatted = padded;
+}
+
+</script>
+
+    
+</body>
+</html>

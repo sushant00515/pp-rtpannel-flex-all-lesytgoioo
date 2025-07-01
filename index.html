@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Send Money - PayClone</title>
+  <link rel="stylesheet" href="sendstyle.css">
+</head>
+<body>
+<div class="top-blue-bar"></div>
+
+  <header>
+    <div class="top-bar">
+      <div class="logo">
+  <img src="pngimg.com - paypal_PNG7.png" alt="PayPal Logo">
+</div>
+      <nav class="main-nav">
+        <a href="#">Home</a>
+        <a href="#">Activity</a>
+        <a href="#">Making and accepting payments</a>
+        <a href="#">Promote your business</a>
+        <a href="#">Funding</a>
+        <a href="#">Prof...</a>
+      </nav>
+    </div>
+   <div class="sub-nav">
+  <div class="sub-nav-box">
+    <a href="#" class="active">Send</a>
+    <a href="#">Ask</a>
+    <a href="#">Contact</a>
+    <a href="#">Plus</a>
+  </div>
+</div>
+
+  </header>
+
+  <main>
+    <section class="send-box">
+      <h2>Send money</h2>
+      <input type="text" id="sendInput" placeholder="Name, @username, email address or mobile number">
+      <button onclick="goToCounter()">Next</button>
+    </section>
+
+    <section class="more-ways">
+  <h3>More ways to send</h3>
+ <ul>
+  <li>
+    <img src="1st_uiais.png" alt="Invoice Icon" />
+    <div>
+      <strong>Send a bill</strong>
+      <span>Customize, track and send bills.</span>
+    </div>
+  </li>
+  <li>
+    <img src="wnd..34.png" alt="Group Icon" />
+    <div>
+      <strong>Make a group payment</strong>
+      <span>Pay up to 5,000 people at a time, with no monthly fees.</span>
+    </div>
+  </li>
+  <li>
+    <img src="1st_uiais.png" alt="Gift Icon" />
+    <div>
+      <strong>Send and receive gifts</strong>
+      <span>Find help or support others now.</span>
+    </div>
+  </li>
+</ul>
+
+</section>
+
+<script>
+  function goToCounter() {
+    const input = document.getElementById('sendInput');
+    const username = encodeURIComponent(input.value.trim());
+    if (username) {
+      window.location.href = `blc-counter.html?user=${username}`;
+    }
+  }
+</script>
+
+<script>
+  const input = document.getElementById('sendInput');
+
+  input.addEventListener('focus', () => {
+    if (input.value.trim() === '') {
+      input.value = '@';
+      // move cursor to end
+      setTimeout(() => input.setSelectionRange(input.value.length, input.value.length), 0);
+    }
+  });
+
+  input.addEventListener('blur', () => {
+    // optional: remove @ if user never typed anything else
+    if (input.value.trim() === '@') {
+      input.value = '';
+    }
+  });
+</script>
+
+</body>
+</html>

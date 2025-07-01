@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PayPal Dashboard Clone</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+    }
+    .navbar {
+      background-color: #003087;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 12px 24px;
+    }
+    .navbar-top, .navbar-bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .navbar-top h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+    .navbar-bottom {
+      margin-top: 10px;
+      justify-content: space-between;
+    }
+    .nav-left, .nav-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .nav-left a, .nav-right a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 20px;
+    }
+    .top-section {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media (min-width: 768px) {
+      .top-section {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .balance h2 {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+    .balance .amount {
+      font-size: 28px;
+      color: #464a51;
+      margin: 10px 0;
+    }
+    .btn {
+      background-color: #138cdc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .link {
+      display: block;
+      color: #0070ba;
+      text-decoration: none;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+   .quick-links {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+    .quick-link-item {
+      flex: 1 1 120px;
+    }
+    .quick-link-item .icon {
+      width: 50px;
+      height: 50px;
+      background-color: #e6f0fb;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 8px;
+    }
+    .quick-link-item img {
+      width: 24px;
+      height: 24px;
+    }
+    .recommendation h3 {
+      color: #003087;
+      font-size: 16px;
+    }
+    .recommendation p, .insight p {
+      font-size: 14px;
+      color: #333;
+    }
+    .actions input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .currency-conversion {
+  background-color: #f0f4f8;
+  border-radius: 6px;
+  padding: 10px 15px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #333;
+}
+
+.conversion-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.conversion-row:last-child {
+  border-bottom: none;
+}
+
+.currency-conversion .right {
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.conversion-note {
+  font-size: 11px;
+  color: #666;
+  margin-top: 6px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-top">
+      <h1>
+  <img src="https://paypalweb-1yplbbn18-freeworldfghjhjkjkjghjgkdz.vercel.app/assets/images/pp-fv.svg" alt="PayPal" style="height: 20px; vertical-align: middle; margin-right: 8px;" />
+  Stevee
+</h1>
+
+      <div class="nav-right">
+  <a href="#">Developer</a>
+  <a href="#">Help</a>
+</div>
+
+    </div>
+    <div class="navbar-bottom">
+      <div class="nav-left">
+        <a href="#">Home</a>
+        <a href="#">Activity</a>
+        <a href="#">Pay & Get Paid</a>
+        <a href="#">Marketing For Growth</a>
+        <a href="#">Business Tools</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard" id="mainDashboard">
+
+    <div class="top-section">
+      <div class="card balance">
+        <h2>PayPal balance</h2>
+        <div class="amount">1916 891228,78 €</div>
+        <p>Available</p>
+<div class="currency-conversion">
+  <div class="conversion-row">
+    <span>USD</span>
+    <span class="right">US$219631775518.32</span>
+  </div>
+  <div class="conversion-row">
+    <span>PHP</span>
+    <span class="right">€1916 891228,78</span>
+  </div>
+  <p class="conversion-note">*This is an estimate based on the most recent conversion rate.</p>
+</div>
+<br>
+        
+        <button class="btn">Add Money</button>
+        <a href="#" class="link">Set up auto transfers</a>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Quick Access <a href="#" style="float:right;color:#0070ba;font-size:13px">Edit</a></div>
+        <div class="quick-links">
+          <div class="quick-link-item">
+            <div class="icon"><img src="business.png" alt="Tools"></div>
+            Business Tools
+          </div>
+          <div class="quick-link-item">
+            <div class="icon"><img src="inv.png" alt="Invoicing"></div>
+            Invoicing
+          </div>
+          <div class="quick-link-item">
+            <div class="icon"><img src="request.png" alt="Request"></div>
+            Request Money
+          </div>
+          <div class="quick-link-item">
+            <div class="icon"><a href="index.html"><img src="send.png" alt="Send Money"class="icon" /></a></div>
+            Send Money
+          </div>
+          <div class="quick-link-item">
+            <div class="icon"><img src="payp.png" alt="PayPal.Me"></div>
+            PayPal.Me
+          </div>
+          <div class="quick-link-item">
+            <div class="icon"><img src="oni.png" alt="Checkout"></div>
+            Online Checkout
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card transfer-info">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <img src="fgiiifyt.png" alt="Gift Icon" style="width: 24px; height: 24px;" />
+    <div>
+      <strong>24hr–72hr</strong>
+      <p style="margin: 2px 0 0; font-size: 14px; color: #555;">The amount of time your transfer takes.</p>
+    </div>
+  </div>
+  <hr style="margin: 15px 0;">
+  <div class="section-title">Actions</div>
+  <button class="btn" style="background-color: #0070f3; border-radius: 9999px;">Send Money</button>
+</div>
+
+
+    <div class="card insight">
+      <div class="section-title">Insights <span style="float:right;color:#0070ba;font-size:13px">Last 7 days ></span></div>
+      <p><strong>Money in</strong></p>
+      <div style="font-size: 24px; color: #000">$0.00</div>
+      <p>Total received</p>
+    </div>
+
+    <div class="card actions">
+      <div class="section-title">Actions <span style="float:right;color:#0070ba;font-size:13px">+ NEW ACTIONS</span></div>
+      <p><strong>Create an invoice</strong></p>
+      <input type="email" placeholder="Customer's email" />
+    </div>
+  </div>
+ 
+</body>
+</html>

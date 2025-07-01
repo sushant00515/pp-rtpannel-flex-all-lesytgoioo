@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PayClone Combined App</title>
+  <link rel="stylesheet" href="sendstyle.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="blc.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+ 
+</head>
+<body>
+
+<div class="top-blue-bar"></div>
+<header>
+  <div class="top-bar">
+    <div class="logo"><img src="pngimg.com - paypal_PNG7.png" alt="PayPal Logo"></div>
+    <nav class="main-nav">
+      <a href="#">Home</a>
+      <a href="#">Activity</a>
+      <a href="#">Making and accepting payments</a>
+      <a href="#">Promote your business</a>
+      <a href="#">Funding</a>
+      <a href="#">Prof...</a>
+    </nav>
+  </div>
+  <div class="sub-nav">
+    <div class="sub-nav-box">
+      <a href="#" class="active" onclick="showSection('startSection')">Send</a>
+      <a href="#">Ask</a>
+      <a href="#">Contact</a>
+      <a href="#">Plus</a>
+    </div>
+  </div>
+</header>
+
+<!-- Section 1: Start -->
+<div id="startSection" class="section">
+  <h2>Send money</h2>
+  <input type="text" id="sendInput" placeholder="Name, @username, email address or mobile number">
+  <button onclick="goToCounter()">Next</button>
+</div>
+
+<!-- Section 2: Amount Input -->
+<div id="counterSection" class="section hidden">
+  <h2 class="title">Send money to <span id="userLabel">@user</span></h2>
+  <div class="amount-currency">
+    <input id="hiddenInput" type="tel" inputmode="numeric" style="opacity:0; position:absolute;" oninput="handleMobileInput()"/>
+    <div id="animatedBalance">0,00</div> <span>EUR</span>
+  </div>
+  <button onclick="sendMoney()">Send</button>
+</div>
+
+<!-- Section 3: Confirmation -->
+<div id="confirmationSection" class="section hidden">
+  <img src="Untitled design (16).png" alt="Success" style="width:100px;">
+  <div class="message" id="confirmationMessage">Processing...</div>
+  <div class="actions">
+    <button onclick="showSection('startSection')">Send more money</button>
+  </div>
+</div>
+
+<script>
+  let rawDigits = "";
+  let lastFormatted = [];
+  let currentUser = "";
+
+  function showSection(id) {
+    document.getElementById("startSection").classList.add("hidden");
+    document.getElementById("counterSection").classList.add("hidden");
+    document.getElementById("confirmationSection").classList.add("hidden");
+    document.getElementById(id).classList.remove("hidden");
+  }
+
+  function goToCounter() {
+    const input = document.getElementById('sendInput').value.trim();
+    if (input) {
+      currentUser = input;
+      document.getElementById('userLabel').textContent = input;
+      showSection('counterSection');
+    }
+  }
+
+  function sendMoney() {
+    const amount = formatToCurrencyDigits(rawDigits).join("");
+    document.getElementById('confirmationMessage').textContent =
+      `You have sent ${amount} € EUR to ${currentUser}`;
+    showSection('confirmationSection');
+  }
+
+  function handleMobileInput() {
+    const input = document.getElementById("hiddenInput");
+    rawDigits = input.value.replace(/\D/g, "").slice(0, 9);
+    updateDisplay();
+  }
+
+  function formatToCurrencyDigits(raw) {
+    raw = raw.padStart(3, "0");
+    const intPart = raw.slice(0, raw.length - 2);
+    const decPart = raw.slice(-2);
+    return [...intPart + "," + decPart];
+  }
+
+  function updateDisplay() {
+    const display = document.getElementById("animatedBalance");
+    const formatted = formatToCurrencyDigits(rawDigits);
+    const padded = [...formatted.join("").padStart(6, "0")];
+    display.innerHTML = "";
+    for (let i = 0; i < padded.length; i++) {
+      const span = document.createElement("span");
+      span.className = "digit";
+      span.textContent = padded[i];
+      display.appendChild(span);
+    }
+    lastFormatted = padded;
+  }
+</script>
+
+</body>
+</html>

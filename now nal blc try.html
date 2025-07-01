@@ -1,0 +1,54 @@
+<!-- PERFECTLY MATCHED LOADING SPINNER -->
+<div id="loader" class="loader-overlay">
+  <div class="matched-spinner"></div>
+</div>
+
+<style>
+  .loader-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: #ffffff;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .matched-spinner {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 6px solid transparent;
+    border-top-color: #0070ba; /* Blue arc */
+    animation: smooth-rotate 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  }
+
+  @keyframes smooth-rotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const sendBtn = document.querySelector('.send');
+    const loader = document.getElementById('loader');
+
+    if (sendBtn) {
+      sendBtn.addEventListener('click', function () {
+        // Hide main sections (adjust selectors if needed)
+        document.querySelectorAll('header, .content-box, .terms-container, .buttons')
+          .forEach(el => el.style.display = 'none');
+
+        // Show the loader
+        loader.style.display = 'flex';
+
+        // Redirect to try.html after 3 seconds
+        setTimeout(() => {
+          window.location.href = 'try.html';
+        }, 3000);
+      });
+    }
+  });
+</script>
